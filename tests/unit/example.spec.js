@@ -58,7 +58,7 @@ describe("CourseItem.vue", () => {
     expect(wrapper.find("h2").text()).toBe("React");
   });
 
-  it("renders props.msg when passed to course discription", async () => {
+  it("renders props.msg when passed to course discription", () => {
     const course = {
       name: "Vue.js",
       description: "The Progressive JavaScript Framework",
@@ -74,6 +74,27 @@ describe("CourseItem.vue", () => {
     });
 
     expect(wrapper.find("p").text()).toBe(
+      "The Progressive JavaScript Framework"
+    );
+  });
+
+  it("renders enrollmentstatus()", () => {
+    const course = {
+      name: "Vue.js",
+    };
+    const wrapper = shallowMount(CourseItem, {
+      props: { course },
+    });
+
+    expect(wrapper.find("p").text()).toBe(
+      "The Progressive JavaScript Framework"
+    );
+  });
+
+  it("shows the button when isAdd is false", async () => {
+    const wrapper = shallowMount(CourseItem);
+
+    expect(wrapper.find("button").exists()).toBe(
       "The Progressive JavaScript Framework"
     );
   });

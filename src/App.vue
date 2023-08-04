@@ -1,9 +1,11 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+  APP: {{ inputText }}
+  <input type="text" v-model="inputText" />
   <h1>Course List App</h1>
-
   <h2>Selected Courses: {{ coursesSelected }}</h2>
+  <TwoWayBinding v-model="inputText"></TwoWayBinding>
 
   <div v-for="course in coursesSelectedList" :key="course">
     {{ course != null ? courses[parseInt(course) - 1].name : "" }}
@@ -20,6 +22,7 @@
 // import HelloWorld from "./components/HelloWorld.vue";
 // import CourseItem from "./components/CourseItem.vue";
 import CourseList from "./components/CourseList.vue";
+import TwoWayBinding from "./components/TwoWayBinding.vue";
 
 export default {
   name: "App",
@@ -108,6 +111,7 @@ export default {
     // HelloWorld,
     // CourseItem,
     CourseList,
+    TwoWayBinding,
   },
   methods: {
     addCourse(id) {
