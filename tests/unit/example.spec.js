@@ -13,6 +13,11 @@ describe("HelloWorld.vue", () => {
 });
 
 describe("CourseItem.vue", () => {
+  it("renders default object when passed ", async () => {
+    const wrapper = shallowMount(CourseItem);
+    expect(wrapper.find("h2").text()).toBe("Course Name");
+  });
+
   it("renders props.msg when passed to course name", async () => {
     const course = {
       name: "Vue.js",
