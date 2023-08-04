@@ -13,10 +13,49 @@ describe("HelloWorld.vue", () => {
 });
 
 describe("CourseItem.vue", () => {
-  it("shows the button when visible is true", () => {
-    const buttonText = "Button";
-    const wrapper = shallowMount(CourseItem);
-    // expect(wrapper.text()).toBe(buttonText);
-    expect(wrapper.find("[data-testid='action']").text()).toBe(buttonText);
+  it("renders props.msg when passed", async () => {
+    const course = {
+      name: "Vue.js",
+      description: "The Progressive JavaScript Framework",
+      hours: 50,
+      credits: 3,
+      location: "Online",
+      instructor: "John Doe",
+      id: 1,
+      enrollment: 10,
+    };
+
+    const wrapper = shallowMount(CourseItem, {
+      props: { course },
+    });
+
+    expect(wrapper.find("h2").text()).toMatch("Vue.js");
+
+    await wrapper.setData({
+      course: {
+        name: "Vue",
+      },
+    });
+
+    expect(wrapper.find("h2").text()).toMatch("Vue");
+
+    await wrapper.setProps({
+      course: {
+        name: "React",
+        description: "The Progressive JavaScript Framework",
+        hours: 50,
+        credits: 3,
+        location: "Online",
+        instructor: "John Doe",
+        id: 1,
+        enrollment: 10,
+      },
+    });
+
+    expect(wrapper.find("h2").text()).toMatch("React");
+
+
+
+    
   });
 });
