@@ -1,4 +1,5 @@
 <template>
+  <button data-testid="action">Button</button>
   <div class="course" :class="{ isFull, isAdded }">
     <h2>{{ course.name }}</h2>
     <p>{{ course.description }}</p>
