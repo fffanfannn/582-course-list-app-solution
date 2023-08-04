@@ -1,5 +1,5 @@
 <template>
-  <label for="firstName"></label>
+  <label for="firstName">omponent:</label>
   <!-- <input type="text" name="firstName" id="firstName" v-model="inputName" /> -->
   <input
     type="text"

@@ -28,6 +28,7 @@ export default {
   name: "App",
   data() {
     return {
+      inputText: "",
       coursesSelected: 0,
       coursesSelectedList: [],
       courses: [

@@ -78,24 +78,15 @@ describe("CourseItem.vue", () => {
     );
   });
 
-  it("renders enrollmentstatus()", () => {
-    const course = {
-      name: "Vue.js",
-    };
-    const wrapper = shallowMount(CourseItem, {
-      props: { course },
-    });
-
-    expect(wrapper.find("p").text()).toBe(
-      "The Progressive JavaScript Framework"
-    );
+  it("When isAdded is false(by default), Add Course button display", () => {
+    const wrapper = shallowMount(CourseItem);
+    expect(wrapper.find("button").exists()).toBe(true);
+    expect(wrapper.find("button").text()).toBe("Add Course");
   });
 
-  it("shows the button when isAdd is false", async () => {
+  it("When click button, tringger the sendAdd function", async () => {
     const wrapper = shallowMount(CourseItem);
-
-    expect(wrapper.find("button").exists()).toBe(
-      "The Progressive JavaScript Framework"
-    );
+    await wrapper.find("button").trigger("click");
+    expect(wrapper.emitted().sendAdd[0]).toEqual(true);
   });
 });
