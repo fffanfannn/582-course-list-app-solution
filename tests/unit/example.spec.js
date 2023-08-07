@@ -86,12 +86,13 @@ describe("CourseItem.vue", () => {
     expect(wrapper.emitted().addCourse[0]).toEqual([1]);
   });
 
-  it("when 'Add Course' button is clicked, isAdded is updated to true", async () => {
+  it("when 'Add Course' button is clicked, isAdded is updated to true, class name contains isAdded", async () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
     });
     await wrapper.find("button").trigger("click");
     expect(wrapper.vm.isAdded).toBe(true);
+    expect(wrapper.classes()).toContain("isAdded");
   });
 
   it("when 'Add Course' button is clicked, 'Add Course' button is replaced ", async () => {
@@ -125,13 +126,14 @@ describe("CourseItem.vue", () => {
     expect(wrapper.emitted().removeCourse[0]).toEqual([1]);
   });
 
-  it("when 'Remove Course' button is clicked, isAdded is updated to false", async () => {
+  it("when 'Remove Course' button is clicked, isAdded is updated to false, and issAdded is removed in class name", async () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
     });
     await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
     await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
     expect(wrapper.vm.isAdded).toBe(false);
+    expect(wrapper.classes()).not.toContain("isAdded");
   });
 
   it("when 'Remove Course' button is clicked, 'Remove Course' button is replaced ", async () => {
@@ -155,5 +157,12 @@ describe("CourseItem.vue", () => {
     expect(wrapper.find('[data-testid="add-course-btn"]').text()).toBe(
       "Add Course"
     );
+  });
+
+  it("when 'Remove Course' button is clicked, 'Remove Course' button is replaced by 'Add Course' button", async () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: { course },
+    });
+    expect(wrapper.find("span").text()).toBe("available to join");
   });
 });
