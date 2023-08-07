@@ -115,19 +115,45 @@ describe("CourseItem.vue", () => {
     );
   });
 
-  it("when 'Remove Course' button is displayed, isFull is false ", () => {
+  it("when 'Remove Course' button is clicked, emits 'removeCourse' event with correct course id", async () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
     });
-    expect(wrapper.vm.isFull).toBe(false);
+    await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
+    await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
+    expect(wrapper.emitted().removeCourse).toBeTruthy;
+    expect(wrapper.emitted().removeCourse[0]).toEqual([1]);
   });
 
-  it("when 'Add Course' button is clicked, emits 'addCourse' event with correct course id", async () => {
+  it("when 'Remove Course' button is clicked, isAdded is updated to false", async () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
     });
-    await wrapper.find("button").trigger("click");
-    expect(wrapper.emitted().addCourse).toBeTruthy;
-    expect(wrapper.emitted().addCourse[0]).toEqual([1]);
+    await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
+    await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
+    expect(wrapper.vm.isAdded).toBe(false);
+  });
+
+  it("when 'Remove Course' button is clicked, 'Remove Course' button is replaced ", async () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: { course },
+    });
+    await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
+    await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
+    expect(wrapper.find('[data-testid="remove-course-btn"]').exists()).toBe(
+      false
+    );
+  });
+
+  it("when 'Remove Course' button is clicked, 'Remove Course' button is replaced by 'Add Course' button", async () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: { course },
+    });
+    await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
+    await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
+    expect(wrapper.find('[data-testid="add-course-btn"]').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="add-course-btn"]').text()).toBe(
+      "Add Course"
+    );
   });
 });
