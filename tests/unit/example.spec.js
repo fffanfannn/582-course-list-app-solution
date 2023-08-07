@@ -61,6 +61,8 @@ describe("CourseItem.vue", () => {
     expect(wrapper.find("h2").text()).toBe("React");
   });
 
+  // test 'Add Course' button display, remove, click action, and class name changes accordingly
+
   it("displays 'Add Course' button display, when isAdded is false(by default), ", () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
@@ -102,6 +104,8 @@ describe("CourseItem.vue", () => {
     await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
     expect(wrapper.find('[data-testid="add-course-btn"]').exists()).toBe(false);
   });
+
+  // test 'Remove Course' button display, remove, click action, and class name changes accordingly
 
   it("when 'Add Course' button is clicked, 'Add Course' button is replaced by 'Remove Course' button", async () => {
     const wrapper = shallowMount(CourseItem, {
@@ -159,10 +163,69 @@ describe("CourseItem.vue", () => {
     );
   });
 
-  it("when 'Remove Course' button is clicked, 'Remove Course' button is replaced by 'Add Course' button", async () => {
+  // test enrollment status with dynamic content, and class name isFull is added accordingly.
+
+  it("if enrollment is 10, enrollment status is 'available to join' ", () => {
     const wrapper = shallowMount(CourseItem, {
       props: { course },
     });
     expect(wrapper.find("span").text()).toBe("available to join");
+    expect(wrapper.vm.isFull).toBe(false);
+  });
+
+  it("if enrollment is 0, enrollment status is 'empty' ", () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: {
+        course: {
+          name: "Vue.js",
+          description: "The Progressive JavaScript Framework",
+          hours: 50,
+          credits: 3,
+          location: "Online",
+          instructor: "John Doe",
+          id: 1,
+          enrollment: 0,
+        },
+      },
+    });
+    expect(wrapper.find("span").text()).toBe("empty");
+    expect(wrapper.vm.isFull).toBe(false);
+  });
+
+  it("if enrollment is 20, enrollment status is 'full'", () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: {
+        course: {
+          name: "Vue.js",
+          description: "The Progressive JavaScript Framework",
+          hours: 50,
+          credits: 3,
+          location: "Online",
+          instructor: "John Doe",
+          id: 1,
+          enrollment: 20,
+        },
+      },
+    });
+    expect(wrapper.find("span").text()).toBe("full");
+  });
+
+  it("if enrollment is 20, isFull is true, and class name 'isFull' is added", () => {
+    const wrapper = shallowMount(CourseItem, {
+      props: {
+        course: {
+          name: "Vue.js",
+          description: "The Progressive JavaScript Framework",
+          hours: 50,
+          credits: 3,
+          location: "Online",
+          instructor: "John Doe",
+          id: 1,
+          enrollment: 20,
+        },
+      },
+    });
+    expect(wrapper.vm.isFull).toBe(true);
+    expect(wrapper.classes()).toContain("isFull");
   });
 });
