@@ -37,6 +37,7 @@ describe("CourseItem.vue", () => {
     expect(wrapper.find("p").text()).toBe(
       "The Progressive JavaScript Framework"
     );
+    
     // setData not works for props
     // await wrapper.setData({
     //   course: {
