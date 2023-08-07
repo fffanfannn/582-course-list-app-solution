@@ -1,16 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
 import CourseItem from "@/components/CourseItem.vue";
-
-describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    });
-    expect(wrapper.text()).toMatch(msg);
-  });
-});
 
 describe("CourseItem.vue", () => {
   const course = {
@@ -24,9 +13,15 @@ describe("CourseItem.vue", () => {
     enrollment: 10,
   };
 
+  // test the default value and default object
   it("renders default object when passed ", async () => {
     const wrapper = shallowMount(CourseItem);
     expect(wrapper.find("h2").text()).toBe("Course Name");
+  });
+
+  it("isAdded is false by default ", async () => {
+    const wrapper = shallowMount(CourseItem);
+    expect(wrapper.vm.isAdded).toBe(false);
   });
 
   it("renders props.course when passed ", async () => {
@@ -37,14 +32,6 @@ describe("CourseItem.vue", () => {
     expect(wrapper.find("p").text()).toBe(
       "The Progressive JavaScript Framework"
     );
-    
-    // setData not works for props
-    // await wrapper.setData({
-    //   course: {
-    //     name: "Vue",
-    //   },
-    // });
-    // expect(wrapper.find("h2").text()).toBe("Vue");
 
     await wrapper.setProps({
       course: {
