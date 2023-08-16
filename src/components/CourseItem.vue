@@ -50,6 +50,7 @@ export default {
       },
     },
   },
+
   data() {
     return {
       isAdded: false,
@@ -58,12 +59,12 @@ export default {
   methods: {
     sendAdd() {
       console.log(1);
-      this.$emit("addCourse", this.course.id);
+      this.$emit("addCourse", this.course.id, this.course.name);
       console.log(3);
       this.isAdded = true;
     },
     sendRemove() {
-      this.$emit("removeCourse", this.course.id);
+      this.$emit("removeCourse", this.course.id, this.course.name);
       console.log("remove");
       this.isAdded = false;
     },
@@ -87,39 +88,39 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.course {
-  border: 1px solid #ccc;
-  padding: 1em;
-  margin: 1em;
-  border-radius: 0.5em;
-  transition: all 0.3s ease-in-out;
-}
+// .course {
+//   border: 1px solid #ccc;
+//   padding: 1em;
+//   margin: 1em;
+//   border-radius: 0.5em;
+//   transition: all 0.3s ease-in-out;
+// }
 
-.isFull {
-  border-color: red;
-}
+// .isFull {
+//   border-color: red;
+// }
 
-ul {
-  display: grid;
-}
+// ul {
+//   display: grid;
+// }
 
-li {
-  list-style: none;
-  text-align: left;
-}
-.status {
-  // rounded corner label for status
-  display: inline-block;
-  padding: 0.2em 0.6em 0.3em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
+// li {
+//   list-style: none;
+//   text-align: left;
+// }
+// .status {
+//   // rounded corner label for status
+//   display: inline-block;
+//   padding: 0.2em 0.6em 0.3em;
+//   font-size: 75%;
+//   font-weight: 700;
+//   line-height: 1;
+//   color: #fff;
 
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25em;
-  background-color: #999;
-}
+//   text-align: center;
+//   white-space: nowrap;
+//   vertical-align: baseline;
+//   border-radius: 0.25em;
+//   background-color: #999;
+// }
 </style>

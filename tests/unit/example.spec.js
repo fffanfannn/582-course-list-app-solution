@@ -73,7 +73,7 @@ describe("CourseItem.vue", () => {
     });
     await wrapper.find("button").trigger("click");
     expect(wrapper.emitted().addCourse).toBeTruthy;
-    expect(wrapper.emitted().addCourse[0]).toEqual([1]);
+    expect(wrapper.emitted().addCourse[0]).toEqual([1, "Vue.js"]);
   });
 
   it("when 'Add Course' button is clicked, isAdded is updated to true, class name contains isAdded", async () => {
@@ -114,8 +114,10 @@ describe("CourseItem.vue", () => {
     });
     await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
     await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
-    expect(wrapper.emitted().removeCourse).toBeTruthy;
-    expect(wrapper.emitted().removeCourse[0]).toEqual([1]);
+    expect(wrapper.emitted().removeCourse[0]).toBeTruthy;
+    expect(wrapper.emitted().removeCourse[0][0]).toEqual(1);
+    expect(wrapper.emitted().removeCourse[0][1]).toEqual("Vue.js");
+    console.log("test", expect(wrapper.emitted().removeCourse));
   });
 
   it("when 'Remove Course' button is clicked, isAdded is updated to false, and issAdded is removed in class name", async () => {
@@ -144,6 +146,7 @@ describe("CourseItem.vue", () => {
       props: { course },
     });
     await wrapper.find('[data-testid="add-course-btn"]').trigger("click");
+    // await wrapper.setDate({ isAdd: true });
     await wrapper.find('[data-testid="remove-course-btn"]').trigger("click");
     expect(wrapper.find('[data-testid="add-course-btn"]').exists()).toBe(true);
     expect(wrapper.find('[data-testid="add-course-btn"]').text()).toBe(

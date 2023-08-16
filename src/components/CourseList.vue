@@ -40,8 +40,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.course-list {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
+// .course-list {
+//   display: grid;
+//   grid-template-columns: repeat(6, 1fr);
+// }
 </style>
